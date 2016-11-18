@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link th:href="@{css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet" />
+    <link th:href="@{css/style.css}" href="css/style.css" rel="stylesheet" />
+    <title>Tseng</title>
+</head>
+<body>
+<div th:include="index :: header"></div>
+<div class="container" role="main">
+    <div class="jumbotron">
+        <h1 th:text="${title}">注册成功</h1>
+        <p th:text="${context}">欢迎注册Tseng,请前往你的邮箱激活此账号.</p>
+    </div>
+</div>
+<div class="footer">
+    <nav class="navbar navbar-fixed-bottom">
+        <p>Design by <a href="wunhwantseng@gmail.com">@Tseng</a>.<a href="#">Back to top</a></p>
+    </nav>
+</div>
+<script th:href="@{js/particles.js}" src="js/particles.js" count="200" zindex="-2" opacity="0.5" color="22,88,196" type="text/javascript"></script>
+<script th:href="@{js/jquery-2.0.3.min.js}" src="js/jquery-2.0.3.min.js"></script>
+<script th:href="@{js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+</body>
+</html>

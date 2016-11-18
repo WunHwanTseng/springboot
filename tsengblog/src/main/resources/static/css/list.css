@@ -1,0 +1,11 @@
+.table a{
+    text-decoration: none;
+}
+.table-foot-a{
+    margin-left: 60%;
+}
+.table-foot-a a{
+    font-size: 15px;
+    margin-left: 10%;
+    text-decoration: none;
+}

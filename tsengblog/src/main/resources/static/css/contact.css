@@ -1,0 +1,25 @@
+.contact-submit{
+    margin-left: 20%;
+}
+.center-top h1{
+    color: #2aabd2;
+}
+.center-top p{
+    font-size: 20px;
+    color: #2aabd2;
+    margin-left: 3%;
+}
+.panel-body img{
+    margin-left: 8%;
+}
+.img-left{
+    float: left;
+}
+.img-right{
+    margin-left: 5%;
+}
+.img-right p{
+    color: #8c8c8c;
+    font-size: 15px;
+    margin-top: 20px;
+}

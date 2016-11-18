@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/register.css" rel="stylesheet" />
+    <title>Tseng</title>
+</head>
+<body>
+<div th:include="index :: header"></div>
+<div class="container center-top">
+    <div class="row">
+        <form id="loginForm" th:action="@{/login}" method="post" class="form-horizontal" role="form">
+            <h2 class="form-sign-heading">登录</h2>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="username">账号</label>
+                <div class="col-sm-5">
+                    <input type="text" id="username" name="username" class="form-control" placeholder="账号或邮箱" />
+                </div>
+                <label class="control-label form-label" for="username">允许数字,英文,符号</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="regpassword">密码</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control" name="password" id="regpassword" placeholder="密码" />
+                </div>
+                <label class="control-label form-label" for="regpassword">密码长度为5~15位</label>
+            </div>
+            <div class="form-group" id="logCode">
+                <label class="col-sm-3 control-label" for="code">验证码</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="code" id="code" placeholder="Code" />
+                </div>
+                <img th:src="@{/blog/code}" />
+            </div>
+            <div class="form-group">
+                <div class="login-form" th:if="${param.error}">
+                    <font color="red" size="2">账号或者密码错误</font>
+                </div>
+                <div class="login-form" th:if="${param.logout}">
+                    <font>账号已经注销</font>
+                </div>
+            </div>
+            <div class="btn-submit">
+                <button type="submit" class="col-sm-6 btn btn-danger">登录</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer">
+    <nav class="navbar navbar-fixed-bottom">
+        <p>Design by <a href="wunhwantseng@gmail.com">@Tseng</a>.<a href="#">Back to top</a></p>
+    </nav>
+</div>
+<!-- 线条 -->
+<script src="js/particles.js" count="200" zindex="-2" opacity="0.5" color="22,88,196" type="text/javascript"></script>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- JQUERY VALIDATE -->
+<script src="js/jquery-validation/jquery.js"></script>
+<script src="js/jquery-validation/jquery.validate.min.js"></script>
+<script src="js/jquery-validation/messages_zh.js"></script>
+<script>
+    $().ready(function () {
+        $("#logCode").on("click","img",function () {
+            var i = new Image();
+            i.src = "/TsengBlog/blog/code?" + Math.random();
+            $(i).replaceAll(this);
+        });
+
+        $("#loginForm").validate({
+            submitHandler:function (form) {
+                form.submit();
+            },
+            rules: {
+                username:{
+                    required:true
+                },
+                password: {
+                    required:true,
+                    rangelength:[5,30]
+                },
+                code: {
+                    required:true,
+                    remote: {
+                        type:"GET",
+                        url:"/TsengBlog/checkCode",
+                        dataType:"json",
+                        data:{
+                            code:function () {
+                                return $("#code").val();
+                            }
+                        }
+                    }
+                }
+            },
+            messages:{
+                username: {
+                    required:"请输入账号"
+                },
+                password: {
+                    required:"请输入密码",
+                    rangelength:"密码长度为5~15"
+                },
+                code: {
+                    required:"验证码不能为空",
+                    remote:"验证码不正确"
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

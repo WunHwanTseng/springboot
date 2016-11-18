@@ -1,0 +1,59 @@
+############ service ###########
+server:
+  context-path: /TsengBlog
+  tomcat:
+    uri-encoding: utf-8
+  port: 8080
+
+############ datasource ###########
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: Tseng
+    url: jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true&amp;characterEncoding=UTF-8
+
+############ thymeleaf ###########
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+
+############## redis #############
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: -1
+
+############## logback #############
+  logging:
+    file: blog.log
+    config: classpath:logback-spring.xml
+    level: Info
+
+############## devtool #############
+  server:
+    session:
+      persistent: true
+    port: 8080
+
+########## upload ############
+  http:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  mustache:
+    cache: false
+
+########## security ############
+security:
+  sessions: if_required
+  enable-csrf: true
+  require-ssl: true

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/list.css" rel="stylesheet" />
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <title>Tseng</title>
+</head>
+<body>
+<div th:include="index :: header"></div>
+<div class="container center-top">
+    <h2 class="sub-header">文件</h2>
+    <div class="col-sm-10 table-responsive table-top">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>文件名</th>
+                    <th>文件</th>
+                    <th>文件简介</th>
+                    <th>上传时间</th>
+                    <th>download</th>
+                </tr>
+            </thead>
+            <tbody id="content"></tbody>
+        </table>
+        <div id="page" class="table-foot-a"></div>
+    </div>
+</div>
+<div class="footer">
+    <nav class="navbar navbar-fixed-bottom">
+        <p>Design by <a href="wunhwantseng@gmail.com">@Tseng</a>.<a href="#">Back to top</a></p>
+    </nav>
+</div>
+<script src="js/particles.js" count="200" zindex="-2" opacity="0.5" color="22,88,196" type="text/javascript"></script>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- pagination -->
+<script src="js/bootstrap-paginator.js"></script>
+<script>
+    $().ready(function () {
+        newJsonList(0);
+    });
+</script>
+<script>
+    function newJsonList(pageNum) {
+        if (pageNum == 0){
+            pageNum=1;
+        } else {
+            pageNum=pageNum;
+        }
+        $.ajax({
+            url:"/file/ajaxList",
+            type:"get",
+            dataType:"json",
+            data: {pageNum:pageNum, pageSize:10},
+            success:function (data) {
+                var options = {
+                    alignment:"center",//居中显示
+                    currentPage: data.pageNum,//当前页数
+                    totalPages: data.pages,//总页数 注意不是总条数
+                    pageUrl: function(type, page, current){
+                        if (page==current) {
+                            return "javascript:void(0)";
+                        } else {
+                            return "javascript:newJsonList("+page+")";
+                        }
+                    }
+                };
+                var html="";
+                $.each(data.list, function (i, obj) {
+                    html += '<tr>'+
+                                '<th>'+i+'</th>'+
+                                '<th>'+obj.name+'</th>'+
+                                '<th>'+obj.path+'</th>'+
+                                '<th>'+obj.dec+'</th>'+
+                                '<th>'+obj.uploadtime+'</th>'+
+                                '<th><a href="/downFile?path='+obj.path+'">下载</a></th>'+
+                            '</tr>';
+                });
+                $("#content").empty();
+                $("#content").append(html);
+                $("#page").bootstrapPaginator(options);
+            },
+            error:function (error) {
+                alert("error");
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+.sidebar{
+    display: none;
+}
+.nav-sidebar{
+    margin-right: -21px;
+    margin-bottom: 20px;
+    margin-left: -20px;
+}

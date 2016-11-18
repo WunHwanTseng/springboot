@@ -1,0 +1,105 @@
+body{
+    font-family: Georgia,"Times New Roman";
+    color: #555;
+}
+.header-button{
+    background-color: #18C0DF;
+}
+.header-bg{
+    background: #f9f9f9;
+    border-bottom-color: #18C0DF;
+}
+.header-logo{
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    letter-spacing: 2px;
+    font-size: 20px;
+    line-height: 20px;
+}
+.header-navcss{
+    margin-left: 10px;
+}
+.header-licenter{
+    margin-left: 3px;
+}
+.header-form{
+    float: left;
+}
+.center-top{
+    margin-top: 50px;
+}
+.font-color{
+    color: #337ab7;;
+}
+.btn-color{
+    color: #46b8da;
+}
+.img-width{
+    width: 100%;
+}
+.jumbotron-bg{
+    background-color: #f9f9f9;
+}
+.letter-cen{
+}
+.letter-cen span{
+    margin-right: 5px;
+}
+.letter-cen li{
+    margin-bottom: 5px;
+}
+.letter-cen ol{
+    margin-left: 15%;
+}
+.letter-cen a{
+    text-decoration: none;
+}
+.navbar-header a{
+    text-decoration: none;
+}
+.a-footer{
+    margin-left: 80%;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.message{
+    background-color: #f5f5f5;
+    width: 30%;
+    margin-right: 35px;
+}
+.footer{
+    padding: 40px 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 1px solid #f9f9f9;
+}
+.footer a{
+    text-decoration: none;
+}
+.footer p:last-child{
+    margin-bottom: 0;
+}
+.sub-header{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.table-top{
+    margin-top: 10px;
+}
+.aticle_button{
+    margin-left: 40%;
+    margin-top: 20px;
+}
+.login-form{
+    margin-left: 40%;
+}
+.login-form font{
+    color: red;
+    size: 2px;
+}
+.error{
+    color: red;
+}

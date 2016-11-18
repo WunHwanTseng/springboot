@@ -1,0 +1,285 @@
+<!DOCTYPE html >
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>Tseng</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/register.css" rel="stylesheet" />
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Tseng</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div>
+                <ul class="nav navbar-nav header-navcss">
+                    <li class="header-licenter"><a th:href="@{/}" href="index.html">首页</a></li>
+                    <li class="header-licenter"><a href="#">生活</a></li>
+                    <li class="header-licenter"><a href="#">自然</a></li>
+                    <li class="dropdown licenter">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">博客<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="list.html">技术博客</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">生活博客</a></li>
+                        </ul>
+                    </li>
+                    <li class="licenter"><a href="contact.html">建议</a></li>
+                </ul>
+            </div>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a th:href="@{/indexManage}" href="#">首页</a></li>
+                <li><a th:href="@{/articleManage}" href="#">文章管理</a></li>
+                <li><a th:href="@{/articletype}" href="#">文章类型管理</a></li>
+                <li><a href="#">建议管理</a></li>
+            </ul>
+        </div>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="TypeAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">添加类型</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form id="typeAddForm" th:action="@{/articletype/add}" method="post" class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="nameAdd">类型名</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="nameAdd" name="name" class="form-control" placeholder="类型名" />
+                                    </div>
+                                </div>
+                                <div class="form-group" id="logCode">
+                                    <label class="col-sm-3 control-label" for="code">验证码</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="code" id="code" placeholder="Code" />
+                                    </div>
+                                    <img th:src="@{/blog/code}" />
+                                </div>
+                                <div class="btn-submit">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="submit" class="btn btn-primary">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="modal fade" id="TypeUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabe">更新类型</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form id="typeUpdateForm" th:action="@{/articletype/update}" method="post" class="form-horizontal" role="form">
+                                <input name="id" id="idUpdate" type="hidden" value="" />
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="nameUpdate">类型名</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="nameUpdate" name="name" class="form-control" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="btn-submit">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header">Article Type</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>类型名</th>
+                        <th>管理</th>
+                    </tr>
+                    </thead>
+                    <tbody id="content"></tbody>
+                </table>
+                <div id="page"></div>
+            </div>
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <div class="navbar-form aticle_button">
+                        <button type="button" class="col-sm-2 btn btn-info header-licenter"  data-toggle="modal" data-target="#TypeAdd">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- JQUERY VALIDATE -->
+<script src="js/jquery-validation/jquery.js"></script>
+<script src="js/jquery-validation/jquery.validate.min.js"></script>
+<script src="js/jquery-validation/messages_zh.js"></script>
+<!-- pagination -->
+<script src="js/bootstrap-paginator.js"></script>
+<script>
+    $().ready(function () {
+        newJsonList(0);
+
+        $("#logCode").on("click","img",function () {
+            var i = new Image();
+            i.src = "/TsengBlog/blog/code?" + Math.random();
+            $(i).replaceAll(this);
+        });
+
+        $("#typeAddForm").validate({
+            submitHandler:function (form) {
+                form.submit();
+            },
+            rules: {
+                name: {
+                    required:true,
+                    maxlength:10,
+                    remote: {
+                        type:"GET",
+                        url:"/TsengBlog/articletype/ajaxCheckName",
+                        dataType:"json",
+                        data:{
+                            code:function () {
+                                return $("#nameAdd").val();
+                            }
+                        }
+                    }
+                },
+                code: {
+                    required:true,
+                    remote: {
+                        type:"GET",
+                        url:"/TsengBlog/checkCode",
+                        dataType:"json",
+                        data:{
+                            code:function () {
+                                return $("#code").val();
+                            }
+                        }
+                    }
+                }
+            },
+            messages: {
+                name: {
+                    required:"类型名不能为空",
+                    maxlength:"最长为10位",
+                    remote:"类型名已经存在"
+                },
+                code: {
+                    required:"验证码不能为空",
+                    remote:"验证码不正确"
+                }
+            }
+        });
+    });
+</script>
+<script>
+    function newJsonList(pageNum) {
+        if (pageNum == 0){
+            pageNum=1;
+        } else {
+            pageNum=pageNum;
+        }
+        $.ajax({
+            url:"/TsengBlog/articletype/articletypePage",
+            type:"get",
+            dataType:"json",
+            data: {pageNum:pageNum, pageSize:5},
+            success:function (data) {
+                var options = {
+                    alignment:"center",//居中显示
+                    currentPage: data.pageNum,//当前页数
+                    totalPages: data.pages,//总页数 注意不是总条数
+                    pageUrl: function(type, page, current){
+                        if (page==current) {
+                            return "javascript:void(0)";
+                        } else {
+                            return "javascript:newJsonList("+page+")";
+                        }
+                    }
+                };
+                var html="";
+                $.each(data.list, function (i, obj) {
+                    html += '<tr>'+
+                            '<th>'+i+'</th>'+
+                            '<th>'+obj.name+'</th>'+
+                            '<th><a class="btn btn-info" href="/TsengBlog/articletype/delete?id='+obj.id+'">删除</a>' +
+                            '<button type="button" onclick="ajaxArticleType('+obj.id+')" class="btn btn-info"  data-toggle="modal" data-target="#TypeUpdate">更新</button>' +
+                            '</th>'+
+                            '</tr>';
+                });
+                $("#content").empty();
+                $("#content").append(html);
+                $("#page").bootstrapPaginator(options);
+            },
+            error:function (error) {
+                alert("error");
+            }
+        });
+    }
+
+    function ajaxArticleType(id) {
+        $.ajax({
+            url:"/TsengBlog/articletype/ajaxSelect",
+            type:"get",
+            dataType:"json",
+            data: {id:id},
+            success:function (data) {
+                $("#idUpdate").val(data.id);
+                $("#nameUpdate").placeholder(data.name);
+            },
+            error:function (error) {
+                alert("error");
+            }
+        });
+    }
+</script>
+</body>
+</html>

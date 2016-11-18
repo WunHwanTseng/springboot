@@ -1,0 +1,27 @@
+.form-sign{
+    width: 60%;
+    padding: 15px;
+    margin-left:10%;
+}
+.form-sign-heading{
+    font-family: Georgia, Times, "Times New Roman", serif;
+    color: #2aabd2;
+    letter-spacing: 70px;
+    margin-left: auto;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.form-label{
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+.btn-form{
+    margin-left: 30%;
+}
+.btn-submit{
+    margin-left: 27%;
+    margin-top: 50px;
+}
+.btn-submit a{
+    text-decoration: none;
+}

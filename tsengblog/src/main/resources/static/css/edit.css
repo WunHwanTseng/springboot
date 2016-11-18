@@ -1,0 +1,16 @@
+.edit-header{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.edit-title{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size:30px;
+    font-weight: 500;
+}
+.form-submit{
+    margin-left: 15%;
+}
+.form-submit a{
+    margin-left: 15%;
+}

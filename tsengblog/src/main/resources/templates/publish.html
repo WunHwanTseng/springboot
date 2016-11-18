@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tseng</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Tseng</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div>
+                <ul class="nav navbar-nav header-navcss">
+                    <li class="header-licenter"><a th:href="@{/}" href="index.html">首页</a></li>
+                    <li class="header-licenter"><a href="#">生活</a></li>
+                    <li class="header-licenter"><a href="#">自然</a></li>
+                    <li class="dropdown licenter">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">博客<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="list.html">技术博客</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">生活博客</a></li>
+                        </ul>
+                    </li>
+                    <li class="licenter"><a href="contact.html">建议</a></li>
+                </ul>
+            </div>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:fragment="indexManageMenu" class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a th:href="@{/indexManage}" href="#">首页</a></li>
+                <li><a th:href="@{/articleManage}" href="#">文章管理</a></li>
+                <li><a href="#">建议管理</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-1 col-sm-offset-2 col-md-1 col-md-offset-2 main">
+            <div class="container" role="main">
+                <div class="edit-header">
+                    <h2 class="edit-title">发布</h2>
+                </div>
+                <div>
+                    <form th:action="@{/article/publish}" id="ArticleForm" class="form-horizontal" method="post" role="form">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-1 control-label">标题</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="title" id="title" class="form-control" placeholder="标题" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="keyword" class="col-sm-1 control-label">关键词</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="关键词" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="type" class="col-sm-1 control-label">文章类型</label>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <select name="type" id="type" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="ck" name="content" class="form-control" cols="20" rows="2"></textarea>
+                            <script type="text/javascript">CKEDITOR.replace('ck');</script>
+                        </div>
+                        <div class="form-group" id="logCode">
+                            <label class="col-sm-1 control-label" for="code">验证码</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="code" id="code" placeholder="Code" />
+                            </div>
+                            <img th:src="@{/blog/code}" />
+                        </div>
+                        <div class="form-group">
+                            <div class="form-submit">
+                                <button type="submit" class="col-sm-4 btn btn-info">提交</button>
+                                <a class="col-sm-4 btn btn-info">返回</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<div class="footer">
+    <nav class="navbar navbar-fixed-bottom">
+        <p>Design by <a href="wunhwantseng@gmail.com">@Tseng</a>.<a href="#">Back to top</a></p>
+    </nav>
+</div>
+<script src="js/particles.js" count="200" zindex="-2" opacity="0.5" color="22,88,196" type="text/javascript"></script>
+<!-- JQUERY VALIDATE -->
+<script src="js/jquery-validation/jquery.js"></script>
+<script src="js/jquery-validation/jquery.validate.min.js"></script>
+<script src="js/jquery-validation/messages_zh.js"></script>
+<script>
+    $().ready(function () {
+        typeJson();
+
+        $("#logCode").on("click","img",function () {
+            var i = new Image();
+            i.src = "/TsengBlog/blog/code?" + Math.random();
+            $(i).replaceAll(this);
+        });
+
+        $("#ArticleForm").validate({
+            debug:true,
+            submitHandler:function (form) {
+                form.submit();
+            },
+            rules: {
+                title:{
+                    required:true,
+                    rangelength:[1,40]
+                },
+                content:"required",
+                keyword: {
+                    required:true,
+                    rangelength:[1,10]
+                },
+                type:"required",
+                code: {
+                    required:true,
+                    remote: {
+                        type:"GET",
+                        url:"/TsengBlog/checkCode",
+                        dataType:"json",
+                        data:{
+                            code:function () {
+                                return $("#code").val();
+                            }
+                        }
+                    }
+                }
+            },
+            messages:{
+                title: {
+                    required:"请输入标题",
+                    rangelength:"标题长度为1~20"
+                },
+                content:"请输入内容",
+                keyword: {
+                    required:"请输入关键词",
+                    rangelength:"关键词长度为1~10"
+                },
+                type:"请选择文章类型",
+                code: {
+                    required:"验证码不能为空",
+                    remote:"验证码不正确"
+                }
+            }
+        });
+    });
+</script>
+<script>
+    function typeJson() {
+        $.get("/TsengBlog/article/articletypeList",function (data) {
+            var html = "<option></option>";
+            $.each(data,function (i,data) {
+                html += "<option>"+data.name+"</option>";
+            });
+            $("#type").append(html);
+        },"json");
+    }
+</script>
+</body>
+</html>

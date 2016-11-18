@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link th:href="@{css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet" />
+    <link th:href="@{css/style.css}" href="css/style.css" rel="stylesheet" />
+    <link th:href="@{css/contact.css}" href="css/contact.css" rel="stylesheet" />
+    <title>Tseng</title>
+</head>
+<body>
+<nav th:fragment="header" class="navbar header-bg navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" value="菜单" class="navbar-toggle collapsed header-button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="header-logo" th:href="@{/}" href="#">Tseng</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div>
+                <ul class="nav navbar-nav header-navcss">
+                    <li class="header-licenter"><a th:href="@{/}" href="index.html">首页</a></li>
+                    <li class="header-licenter"><a href="#">小工具</a></li>
+                    <li class="header-licenter"><a th:href="@{/ArticleNewList}" href="#">博客</a></li>
+                </ul>
+            </div>
+            <div class="navbar-right">
+                <form class="navbar-form header-form" method="post" role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" />
+                    </div>
+                    <a class="btn btn-default btn-color">搜索</a>
+                    <a th:href="@{/login}" class="btn btn-default btn-color">登录</a>
+                </form>
+            </div>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<div id="myCarousel" class="carousel slide">
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img class="img-width" src="image/IMG_884574_1.jpg" />
+        </div>
+        <div class="item">
+            <img class="img-width" src="image/IMG_882169_6.jpg" />
+        </div>
+        <div class="item">
+            <img class="img-width" src="image/IMG_880611_9.jpg" />
+        </div>
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+    <a class="carousel-control left" href="#myCarousel"
+       data-slide="prev">&lsaquo;
+    </a>
+    <a class="carousel-control right" href="#myCarousel"
+       data-slide="next">&rsaquo;
+    </a>
+</div>
+<!-- Jumbotron -->
+<div class="container center-top" role="main">
+    <div class="jumbotron">
+        <h1>Tseng</h1>
+        <p>有什么建议可以告诉我,或着Email@:wunhwantseng@gmail.com</p>
+    </div>
+</div>
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-lg-4 letter-cen message">
+            <div>
+                <h3>最新</h3>
+                <a th:href="@{/ArticleNewList}" href="list.html" class="a-footer">更多</a>
+            </div>
+            <ol id="ArticleNew" class="list-unstyled"></ol>
+        </div>
+        <div class="col-lg-4 letter-cen message">
+            <div>
+                <h3>最热</h3>
+                <a href="list.html" class="a-footer">更多</a>
+            </div>
+            <ol id="ArticleHot" class="list-unstyled"></ol>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Tseng</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="img-left">
+                        <img src="image/Tseng.png" class="img-circle img-thumbnail" />
+                    </div>
+                    <div class="col-sm-5 img-right">
+                        <p>名字:WunHwan</p>
+                        <p>城市:广州</p>
+                        <p>职业:学生</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <nav class="navbar navbar-fixed-bottom">
+        <p>Design by <a href="wunhwantseng@gmail.com">@Tseng</a>.<a href="#">Back to top</a></p>
+    </nav>
+</div>
+<script th:href="@{js/particles.js}" src="js/particles.js" count="200" zindex="-2" opacity="0.5" color="22,88,196" type="text/javascript"></script>
+<script th:href="@{js/jquery-2.0.3.min.js}" src="js/jquery-2.0.3.min.js"></script>
+<script th:href="@{js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+<script th:href="@{js/jqueryjson.js}" src="js/jqueryjson.js"></script>
+<script>
+    $().ready(function () {
+        Articlejson();
+    });
+</script>
+</body>
+</html>

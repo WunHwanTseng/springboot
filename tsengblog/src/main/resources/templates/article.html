@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-ch" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/blog.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <title>News</title>
+</head>
+<body>
+<div th:include="index :: header"></div>
+<div class="container center-top">
+    <div class="blog-header">
+        <h1 class="blog-title" th:text="${article.title}">Windows 10 Creators 将免费升级，人人有3D</h1>
+        <span class="blog-description blog-time">时间:</span><p class="blog-description blog-time" th:text="${#calendars.format(article.publishtime,'yyyy/MM/dd/ HH:mm:ss')}">2016/10/27 19:21</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-7 blog-main">
+            <div class="blog-post" th:utext="${article.content}"></div>
+        </div>
+        <div class="col-sm-3 col-sm-offset-1">
+            <div class="sidebar-module">
+                <h4>关于</h4>
+                <p>此网站创建于2016/10/27,暂时还不够完善,站主会尽快完善.</p>
+            </div>
+            <div class="sidebar-module">
+                <h4>最新</h4>
+                <ol id="ArticleNew" class="list-unstyled"></ol>
+            </div>
+            <div class="sidebar-module">
+                <h4>最热</h4>
+                <ol id="ArticleHot" class="list-unstyled"></ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content" class="container">
+
+</div>
+<div class="footer">
+    <nav class="navbar navbar-fixed-bottom">
+        <p>Design by <a href="wunhwantseng@gmail.com">@Tseng</a>.<a href="#">Back to top</a></p>
+    </nav>
+</div>
+<script src="js/particles.js" count="200" zindex="-2" opacity="0.5" color="22,88,196" type="text/javascript"></script>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jqueryjson.js"></script>
+<!-- JQUERY VALIDATE -->
+<script src="js/jquery-validation/jquery.js"></script>
+<script src="js/jquery-validation/jquery.validate.min.js"></script>
+<script src="js/jquery-validation/messages_zh.js"></script>
+<!-- JQUERY FORM -->
+<script src="js/jquery-form/jquery.form.js"></script>
+<!-- pagination -->
+<script src="js/bootstrap-paginator.js"></script>
+<script>
+    $().ready(function () {
+        Articlejson();
+    });
+</script>
+</body>
+</html>

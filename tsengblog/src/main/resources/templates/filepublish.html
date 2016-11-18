@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-ch" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/edit.css" rel="stylesheet" />
+    <title>Tseng</title>
+</head>
+<body>
+<div th:include="index :: header"></div>
+<div class="container center-top">
+    <div class="edit-header">
+        <h2 class="edit-title">文件上传</h2>
+    </div>
+    <div>
+        <form th:action="@{/filePublish/fileAjaxUpload}" id="ArticleForm"  class="form-horizontal" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name" class="col-sm-1 control-label">文件名</label>
+                <div class="col-sm-5">
+                    <input type="text" name="name" alt="文件名" id="name" class="form-control" placeholder="标题" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="file" class="col-sm-1 control-label">File</label>
+                <div class="col-sm-5">
+                    <input id="file" type="file" name="file" alt="文件" />
+                    <button class="col-sm-3 btn btn-info" type="button">上传</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dec" class="col-sm-1 control-label">文件简介</label>
+                <div class="col-sm-5">
+                    <input type="text" name="dec" id="dec" class="form-control" placeholder="关键词" />
+                </div>
+            </div>
+            <div class="form-group" id="logCode">
+                <label class="col-sm-1 control-label" for="code">验证码</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="code" id="code" placeholder="Code" />
+                </div>
+                <img th:src="@{/blog/code}" />
+            </div>
+            <div class="form-group">
+                <div class="form-submit">
+                    <button type="submit" class="col-sm-4 btn btn-info">提交</button>
+                    <a class="col-sm-4 btn btn-info">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer">
+    <nav class="navbar navbar-fixed-bottom">
+        <p>Design by <a href="wunhwantseng@gmail.com">@Tseng</a>.<a href="#">Back to top</a></p>
+    </nav>
+</div>
+<script src="js/particles.js" count="200" zindex="-2" opacity="0.5" color="22,88,196" type="text/javascript"></script>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- JQUERY FORM -->
+<script src="js/jquery-form/jquery.form.js"></script>
+<!-- JQUERY VALIDATE -->
+<script src="js/jquery-validation/jquery.js"></script>
+<script src="js/jquery-validation/jquery.validate.min.js"></script>
+<script src="js/jquery-validation/messages_zh.js"></script>
+<script>
+    $().ready(function () {
+        $("#ArticleForm").validate({
+            submitHandler:function (form) {
+                form.submit();
+            },
+            rules: {
+                name:{
+                    required:true,
+                    rangelength:[1,20]
+                },
+                file:"required",
+                dec: {
+                    required:true,
+                    maxlength:30
+                },
+                code: {
+                    required:true,
+                    remote: {
+                        type:"GET",
+                        url:"/blog/checkCode",
+                        dataType:"json",
+                        data:{
+                            code:function () {
+                                return $("#code").val();
+                            }
+                        }
+                    }
+                }
+            },
+            messages:{
+                name: {
+                    required:"请输入文件名",
+                    rangelength:"标题长度为1~20"
+                },
+                file:"请上传文件",
+                dec: {
+                    required:"请输入文件简介",
+                    maxlength:"文件介绍最长为30"
+                },
+                code: {
+                    required:"验证码不能为空",
+                    remote:"验证码不正确"
+                }
+            }
+        });
+
+        $(function () {
+            var token = $("input[name='_csrf']").val();
+            var header = "X-CSRF-TOKEN";
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+        });
+
+        $("#logCode").on("click","img",function () {
+            var i = new Image();
+            i.src = "/blog/code?" + Math.random();
+            $(i).replaceAll(this);
+        });
+    });
+</script>
+</body>
+</html>
